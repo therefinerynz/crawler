@@ -1,0 +1,24 @@
+{
+	"name": "therefinery/crawler",
+	"description": "Traverse, manipulate and display HTML fetched from URLs in your Twig templates.",
+	"type": "craft-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "The Refinery",
+			"homepage": "http://therefinery.co.nz"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"crawler\\": "./crawler/"
+		}
+	},
+	"require": {
+		"composer/installers": "~1.0",
+		"wa72/htmlpagedom": "^1.3"
+	},
+	"config": {
+		"vendor-dir": "crawler/vendor"
+	}
+}
