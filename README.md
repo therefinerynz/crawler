@@ -2,7 +2,7 @@
 
 Traverse, manipulate and display HTML fetched from URLs in your Twig templates.
 
-![Logo](crawler/resources/icon.svg)
+![Logo](crawler/resources/icon.png)
 
 
 ## Requirements
@@ -34,8 +34,8 @@ Directly from your Twig templates you can fetch an external HTML page, find elem
 {% set crawler = craft.crawler.fetch('http://example.com') %}
 {# For each p element #}
 {% for p in crawler.find('p') %}
-	{# Output that element's outerHTML #}
-	{{ crawler.outerHTML(p)|raw }}
+    {# Output that element's outerHTML #}
+    {{ crawler.outerHTML(p)|raw }}
 {% endfor %}
 ```
 
@@ -52,8 +52,8 @@ domain in examples without prior coordination or asking for permission.</p>
 {% set crawler = craft.crawler.fetch('http://example.com') %}
 {# For the first p element on this page #}
 {% for p in crawler.find('p').first() %}
-	{# Output that element's innerHTML #}
-	{{ crawler.innerHTML()|raw }}
+    {# Output that element's innerHTML #}
+    {{ crawler.innerHTML()|raw }}
 {% endfor %}
 ```
 
@@ -70,8 +70,8 @@ domain in examples without prior coordination or asking for permission.
 {% set crawler = craft.crawler.fetch('http://example.com') %}
 {# Find p elements on page, and add someclass to each element #}
 {% for p in crawler.find('p').addClass('someclass') %}
-	{# Output those elements #}
-	{{ crawler.outerHTML(p)|raw }}
+    {# Output those elements #}
+    {{ crawler.outerHTML(p)|raw }}
 {% endfor %}
 ```
 
@@ -88,21 +88,21 @@ The above will output:
 {% set crawler = craft.crawler.fetch('http://example.com') %}
 {# Find a elements on page, and use their href values to output some custom markup #}
 <ul>
-	{% for a in crawler.find('a') %}
-		{% set href = a.getAttribute('href') %}
-		<li>
-			<a href="{{ href }}">{{ href }}</a>
-		</li>
-	{% endfor %}
+    {% for a in crawler.find('a') %}
+        {% set href = a.getAttribute('href') %}
+        <li>
+            <a href="{{ href }}">{{ href }}</a>
+        </li>
+    {% endfor %}
 </ul>
 ```
 
 The above will output:
 ```html
 <ul>
-	<li>
-		<a href="http://www.iana.org/domains/example">http://www.iana.org/domains/example</a>
-	</li>
+    <li>
+        <a href="http://www.iana.org/domains/example">http://www.iana.org/domains/example</a>
+    </li>
 </ul>
 ```
 
