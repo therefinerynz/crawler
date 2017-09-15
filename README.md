@@ -27,16 +27,25 @@ Crawler is a wrapper around the `HtmlPageCrawler` library provided by [Christoph
 
 Directly from your Twig templates you can fetch an external HTML page, find elements using CSS selectors, and output these as you wish.
 
+Please note that the `fetch` method will return `null` if Crawler can't fetch the contents of the given URL.
+When this happens, the error will be recorded in Crawler's error log.
+So, if you cannot be certain that a given URL will not result in an error (e.g. in the case of dynamically built URLs), then you should test if the result of Crawler's `fetch` method returned the Crawler instance (successful) rather than `null` (error) before proceeding to use further methods.
+
 ### Example 1: output outerHTML
 
 ```php
 {# Fetch HTML #}
 {% set crawler = craft.crawler.fetch('http://example.com') %}
-{# For each p element #}
-{% for p in crawler.find('p') %}
-    {# Output that element's outerHTML #}
-    {{ crawler.outerHTML(p)|raw }}
-{% endfor %}
+{# Test to see if the call to Crawler was successful #}
+{% if crawler %}
+    {# For each p element #}
+    {% for p in crawler.find('p') %}
+        {# Output that element's outerHTML #}
+        {{ crawler.outerHTML(p)|raw }}
+    {% endfor %}
+{% else %}
+    Oops, no content was found :(
+{% endif %}
 ```
 
 The above will output:
@@ -51,9 +60,9 @@ domain in examples without prior coordination or asking for permission.</p>
 {# Fetch HTML #}
 {% set crawler = craft.crawler.fetch('http://example.com') %}
 {# For the first p element on this page #}
-{% for p in crawler.find('p').first() %}
+{% for p in crawler.filter('p') %}
     {# Output that element's innerHTML #}
-    {{ crawler.innerHTML()|raw }}
+    {{ crawler.innerHTML(p)|raw }}
 {% endfor %}
 ```
 

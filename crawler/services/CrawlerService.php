@@ -24,12 +24,21 @@ class CrawlerService extends BaseApplicationComponent
 	 *
 	 * @param string $url
 	 *
-	 * @return Crawler
+	 * @return Crawler|null
 	 */
 	public function fetch($url)
 	{
-		$html = file_get_contents($url);
+		// Suppress warning
+		$html = @file_get_contents($url);
 
+		// Did we find anything?
+		if (!$html) {
+			CrawlerPlugin::log('Could not fetch content for the page located at '. $url, LogLevel::Error, true);
+
+			return null;
+		}
+
+		// Success
 		return new Crawler($html);
 	}
 
